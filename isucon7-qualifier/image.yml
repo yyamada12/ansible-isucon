@@ -5,9 +5,4 @@
     - mysql
     - nginx
     - webapp-go
-    - webapp-node
-    - webapp-perl
-    - webapp-php
-    - webapp-ruby
-    - webapp-python
     - image
