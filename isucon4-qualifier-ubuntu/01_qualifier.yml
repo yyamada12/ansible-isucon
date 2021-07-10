@@ -7,7 +7,6 @@
     - service: name=nginx enabled=true
     - apt: name=mysql-server
     - service: name=mysql state=started enabled=true
-    - apt: name=python-mysqldb
     - apt: name=git
     - git: repo=https://github.com/isucon/isucon4.git dest=/tmp/isucon4
     - shell: cp /tmp/isucon4/qualifier/ami/files/nginx.conf /etc/nginx/nginx.conf
