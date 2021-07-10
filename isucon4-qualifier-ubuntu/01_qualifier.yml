@@ -46,8 +46,8 @@
           [client]
           user = root
           password = root
-          
-    - command: sed -i 's/ +0900//g' /tmp/isucon/sql/dummy_log.sql.sql
+            
+    - command: sed -i 's/ +0900//g' /tmp/isucon/sql/dummy_log.sql
 
     - name: Create isucon user on MySQL
       become: yes
@@ -57,7 +57,7 @@
           mysql -uroot -proot -e "DROP DATABASE IF EXISTS isu4_qualifier; CREATE DATABASE isu4_qualifier"
           mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/schema.sql
           mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/dummy_users.sql
-          mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/dummy_log.sql.sql
+          mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/dummy_log.sql
 
     - name: Remove Temporary file
       become: yes
