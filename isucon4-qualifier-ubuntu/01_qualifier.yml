@@ -36,12 +36,34 @@
     - command: rsync -avz --delete --exclude-from=/tmp/isucon4/qualifier/ami/files/rsync_exclude.txt /tmp/isucon/ /home/isucon/
       become: yes
   post_tasks:
-    - command: ./init.sh
+    - name: Set Temporary password
       become: yes
-      become_user: isucon
-      args:
-        chdir: /home/isucon
-    - mysql_user: name=isucon password=isucon priv=*.*:ALL state=present
+      become_user: root
+      blockinfile:
+        create: yes
+        dest: &myCnf /root/.my.cnf
+        content: |
+          [client]
+          user = root
+          password = root
+
+    - name: Create isucon user on MySQL
+      become: yes
+      become_user: root
+      shell: |
+          mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO isucon@localhost IDENTIFIED BY 'isucon' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+          mysql -uroot -proot -e "DROP DATABASE IF EXISTS isu4_qualifier; CREATE DATABASE isu4_qualifier"
+          mysql -uroot -proot -e < /tmp/isucon/sql/schema.sql
+          mysql -uroot -proot -e < /tmp/isucon/sql/dummy_users.sql
+          mysql -uroot -proot -e < /tmp/isucon/sql/dummy_log.sql
+
+    - name: Remove Temporary file
+      become: yes
+      become_user: root
+      file:
+        path: *myCnf
+        state: absent
+
   handlers:
     - name: restart mysqld
       action: service name=mysql state=restarted
