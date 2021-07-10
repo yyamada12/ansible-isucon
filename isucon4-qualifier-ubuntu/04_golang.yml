@@ -2,9 +2,9 @@
 - hosts: all
   become: yes
   tasks:
-    - apt: pkg=git state=installed
-    - apt: pkg=mercurial state=installed
-    - apt: pkg=bzr state=installed
+    - apt: pkg=git
+    - apt: pkg=mercurial
+    - apt: pkg=bzr
     - command: "curl -L -O  https://golang.org/dl/go1.16.5.linux-amd64.tar.gz"
       args:
         chdir: /tmp
