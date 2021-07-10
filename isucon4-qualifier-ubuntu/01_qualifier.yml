@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   tasks:
-    - user: name=isucon groups=sudo
+    - user: name=isucon groups=sudo shell=/bin/bash
     - apt: name=nginx-full
     - service: name=nginx enabled=true
     - apt: name=mysql-server
