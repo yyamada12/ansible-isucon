@@ -53,9 +53,9 @@
       shell: |
           mysql -uroot -proot -e "CREATE USER IF NOT EXISTS isucon@localhost IDENTIFIED BY 'isucon'; GRANT ALL PRIVILEGES ON *.* TO isucon@localhost WITH GRANT OPTION; FLUSH PRIVILEGES;"
           mysql -uroot -proot -e "DROP DATABASE IF EXISTS isu4_qualifier; CREATE DATABASE isu4_qualifier"
-          mysql -uroot -proot < /tmp/isucon/sql/schema.sql
-          mysql -uroot -proot < /tmp/isucon/sql/dummy_users.sql
-          mysql -uroot -proot < /tmp/isucon/sql/dummy_log.sql
+          mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/schema.sql
+          mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/dummy_users.sql
+          mysql -uroot -proot isu4_qualifier < /tmp/isucon/sql/dummy_log.sql
 
     - name: Remove Temporary file
       become: yes
