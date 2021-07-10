@@ -17,6 +17,9 @@
     - command: "/usr/bin/gem install -N gondler -v 0.2.0"
       args:
         creates: /usr/local/bin/gondler
+    - command: go mod init isucon4 || true
+      args:
+        chdir: /home/isucon/webapp/go
     - command: /home/isucon/env.sh ./build.sh
       args:
         chdir: /home/isucon/webapp/go
